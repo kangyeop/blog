@@ -12,7 +12,7 @@ order: 4
 
 - **Frontend** React, Next.js, TypeScript, Jotai, Vite, React Query
 - **Backend** Nest.js
-- **AI / LLM** LangChain.js, LangGraph, Prompt Engineering, 자체 LLM 관측 인프라(OpenSearch)
+- **AI / LLM** LangChain.js, LangGraph, Prompt Engineering
 - **Polyglot** Python (FastAPI, OpenCV, scikit-learn)
 
 ## Contact
