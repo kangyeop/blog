@@ -1,0 +1,54 @@
+---
+title: "FSD(Feature-Sliced Design)란 무엇인가"
+date: 2026-07-28
+categories: [Frontend]
+tags: [FSD, Feature-Sliced-Design, Frontend, Architecture]
+---
+
+다시 FE팀으로 돌아왔다. 돌아와서 맡게 된 프로젝트를 열어보니 FSD(Feature-Sliced Design)를 사용하고 있었다.
+
+예전에도 사용했던 아키텍쳐라 낯설지는 않았다. 하지만 오랜만에 다시 하려니 조금 헷갈리는 부분이 생겨 다시 공부를 해보았다.
+
+## **FSD는 어떤 구조인가**
+
+프론트엔드 폴더 구조는 크게 두 갈래로 나뉜다. `components`, `hooks`, `utils`처럼 기술 역할별로 나누는 방식과, 로그인·팔로우처럼 기능(도메인) 단위로 나누는 방식. 기술 역할별 구조는 프로젝트가 커질수록 한 기능을 고치려면 여러 폴더를 오가야 하는 문제가 생긴다. `components`에 있는 파일을 고치면서 `hooks`, `utils`도 같이 열어야 하는 식이다.
+
+FSD는 기능 단위로 나누는 쪽을 택하면서, 여기에 레이어라는 개념을 더한다. 그냥 "기능별로 폴더를 나눈다"에서 그치지 않고, 레이어 사이의 의존 방향까지 규칙으로 정해둔다. 이 규칙이 있고 없고의 차이가 FSD를 다른 기능 단위 구조와 구분 짓는 지점이다.
+
+## 레이어, 슬라이스, 세그먼트
+
+FSD는 코드를 세 단계로 나눠 본다.
+
+**레이어(layer)**는 위에서 아래로 `app → pages → widgets → features → entities → shared` 순서로 쌓인다. 상위 레이어는 하위 레이어를 참조할 수 있지만, 그 반대는 안 된다. `shared`는 가장 아래에 있어서 다른 어떤 레이어에도 의존하지 않고, 반대로 모든 레이어가 `shared`를 쓸 수 있다.
+
+![FSD 레이어 구조](/assets/img/posts/fsd-layers.png){: width="240" }
+_`src` 아래에 레이어별 폴더가 놓인다. `processes`는 현재 deprecated 상태다._
+
+- `app`: 라우팅, 전역 프로바이더처럼 앱 전체를 초기화하는 코드
+- `pages`: 라우트 단위 화면
+- `widgets`: 여러 feature와 entity를 조합한 독립적인 화면 블록
+- `features`: 팔로우, 좋아요처럼 사용자가 직접 하는 행동 단위
+- `entities`: 사용자, 게시글처럼 도메인 개념 자체와 그걸 다루는 기본 로직
+- `shared`: 날짜 포맷, 버튼 컴포넌트처럼 도메인 의미가 없는 범용 코드
+
+**슬라이스(slice)**는 레이어 안에서 다시 도메인 단위로 나눈 것이다. `features` 레이어라면 `follow`, `auth`, `comment` 같은 슬라이스가 생긴다. 같은 레이어에 있는 슬라이스끼리는 서로 참조하지 않는 게 원칙이다. `follow` 슬라이스가 `auth` 슬라이스 내부를 직접 들여다보면 안 된다.
+
+**세그먼트(segment)**는 슬라이스 안을 역할별로 나눈 것이다. `ui`(컴포넌트), `model`(상태, 타입), `api`(요청 함수)처럼 나눈다. 같은 슬라이스 안에서는 세그먼트끼리 자유롭게 참조할 수 있다.
+
+## public API로만 접근한다
+
+슬라이스 내부 파일을 아무 데서나 바로 import하지 않고, 슬라이스마다 있는 진입점(보통 `index.ts`)을 통해서만 접근하게 한다. 이 진입점에서 밖에 공개할 것만 내보낸다. 그래서 `features/follow`의 내부 구현이 어떻게 생겼든, 그걸 쓰는 쪽은 `features/follow`가 공개한 인터페이스만 본다. 내부를 리팩터링해도 이 인터페이스만 유지되면 사용하는 쪽 코드는 안 바뀐다.
+
+## 이렇게 나누는 이유
+
+레이어, 슬라이스, public API 규칙을 다 모으면 결국 한 가지로 수렴한다. 새 코드를 만들 때 "이게 어디에 들어가야 하는가"라는 질문에 어느 정도 정해진 답이 나온다는 것. 사용자 정보 자체와 이를 조회하는 API는 여러 기능에서 재사용되니 entity에 두고, 팔로우라는 행동 자체는 feature에 둔다. 날짜 포맷이나 버튼처럼 도메인 의미가 없는 코드는 shared에 둔다.
+
+의존성 방향도 같은 목적이다. feature가 entity를 쓰는 건 자연스럽지만, entity가 특정 feature를 알기 시작하면 그 entity는 그 feature 없이는 재사용할 수 없는 코드가 된다. 이 방향을 미리 정해두면, 어디서 결합이 생기는지를 코드를 다 읽지 않아도 레이어만 보고 알 수 있다.
+
+---
+
+### 참고
+
+- [Feature-Sliced Design 공식 문서](https://feature-sliced.github.io/documentation/)
+- [Let's Learn Feature-Sliced Design (FSD) — nyaomaru, dev.to (2025.09)](https://dev.to/nyaomaru/lets-learn-feature-sliced-design-fsd-15bb)
+
