@@ -28,8 +28,8 @@ url: "https://kangyeop.github.io"
 github:
   username: kangyeop # change to your GitHub username
 
-twitter:
-  username: # change to your Twitter username
+# jekyll-seo-tag uses this for the JSON-LD `author` field.
+author: 이강엽
 
 social:
   # Change to your full name.

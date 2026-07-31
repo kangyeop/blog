@@ -1,5 +1,6 @@
 ---
 title: "바이브 코딩을 하면서도 FSD를 유지하는 게 맞을까"
+description: "AI에게 코드를 맡기면 FSD 규칙이 계속 어긋난다. ESLint와 스킬, GitHub Action으로 아키텍처를 강제하며 바이브 코딩과 FSD를 함께 유지한 방법."
 date: 2026-07-30
 categories: [Frontend]
 tags: [FSD, Feature-Sliced-Design, Vibe-Coding, AI, Frontend, Architecture]
