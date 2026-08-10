@@ -30,3 +30,6 @@ assets/js/dist
 *~
 .DS_Store
 Thumbs.db
+
+# Local Claude Code project instructions (not shared)
+CLAUDE.md
