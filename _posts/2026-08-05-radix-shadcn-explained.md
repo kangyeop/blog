@@ -2,7 +2,7 @@
 title: "Radix, shadcn/ui는 뭔데 다들 이걸 쓰는 걸까"
 description: "MUI 대신 Radix와 shadcn/ui가 기본값처럼 깔려 있는 이유를 확인해본 내용. 스타일 없는 컴포넌트와 복사해서 소유하는 방식."
 date: 2026-08-05
-categories: [Frontend]
+categories: [학습정리]
 tags: [Radix, shadcn, Frontend, UI, Design-System]
 ---
 

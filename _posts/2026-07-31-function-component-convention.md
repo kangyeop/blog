@@ -2,7 +2,7 @@
 title: "AI가 만든 컴포넌트는 왜 전부 function일까"
 description: "컴포넌트를 화살표 함수로 쓰는 걸 관행처럼 따라 쓰고 있었다. 그게 어디서 온 건지 확인해본 내용."
 date: 2026-07-31
-categories: [Frontend]
+categories: [학습정리]
 tags: [Frontend, Convention, AI, ESLint, React]
 ---
 

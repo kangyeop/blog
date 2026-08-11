@@ -2,7 +2,7 @@
 title: "AI Agent를 만들다가 다시 프론트엔드로"
 description: "프론트엔드 개발자가 LLM 초창기에 AI TF로 시작해 사내 LLM 플랫폼과 AI Agent 서비스를 만들다가, 다시 프론트엔드로 돌아오기까지의 회고."
 date: 2026-07-14
-categories: [회고]
+categories: [업무회고]
 tags: [ai, llm, agent, llmops, frontend, career, 회고]
 ---
 

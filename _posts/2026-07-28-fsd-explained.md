@@ -2,7 +2,7 @@
 title: "FSD(Feature-Sliced Design)란 무엇인가"
 description: "FSD의 레이어·슬라이스·세그먼트 구조와 의존성 방향, public API 규칙을 정리했다. 프론트엔드 폴더 구조를 기능 단위로 나누는 아키텍처 입문."
 date: 2026-07-28
-categories: [Frontend]
+categories: [학습정리]
 tags: [FSD, Feature-Sliced-Design, Frontend, Architecture]
 ---
 
