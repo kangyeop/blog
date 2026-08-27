@@ -32,12 +32,4 @@ knip은 프로젝트를 전체 스캔해서 사용하지 않는 파일, export, 
 
 처음 감사 워크플로우를 만들 때는 자동화할 것은 다 Agent로 하면 된다고 생각했다. 그런데 세 가지를 다시 보니 knip처럼 이미 도구가 할 수 있는 일이 섞여 있었다. 그래서 죽은 코드 탐지는 knip으로 넘겼다. FSD 감사와 컨벤션 체크도 레이어 경계를 넘는 import처럼 규칙으로 적을 수 있는 것은 ESLint에게 넘기고, 남은 부분만 Claude Code가 보도록 두었다.
 
-FSD 감사를 돌린 결과가 그 예다. ESLint 경계 규칙에서는 위반이 하나도 나오지 않았다.
-
-![ESLint 경계 검사 결과](/assets/img/posts/fsd-audit-eslint-clean.png)
-
-같은 실행에서 Claude Code는 `src/lib/`를 짚었다. FSD 레이어 트리 밖에 있는 디렉터리라 `eslint-plugin-boundaries`의 `boundaries/elements` 패턴에 걸리지 않아 아예 검사 대상이 아니었고, 다른 레이어들이 상대경로로 이 디렉터리를 직접 참조하고 있었다.
-
-![ESLint가 잡지 못한 구조적 발견](/assets/img/posts/fsd-audit-structural-finding.png)
-
 AI가 있으니까 자동화는 다 AI에게 맡기면 된다고 생각했었는데, Agent로 전부 처리하는 것보다 기계적으로 할 수 있는 것과 AI가 판단해야 하는 것을 구분하는 게 중요하다는 것을 느꼈다.
