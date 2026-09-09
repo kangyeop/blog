@@ -19,7 +19,7 @@ title: 이강엽 # the main title
 tagline: Frontend Developer, AI Agent Engineer # it will display as the subtitle
 
 description: >- # used by seo meta and the atom feed
-  프론트엔드와 LLM 에이전트 파이프라인을 오가며 만든 것들을 기록합니다.
+  일하면서 궁금해진 것을 찾아보고 정리하고, 겪은 이슈를 회고해서 남깁니다.
 
 # Fill in the protocol & hostname for your site.
 # E.g. 'https://username.github.io', note that it does not end with a '/'.
